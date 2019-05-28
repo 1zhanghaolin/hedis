@@ -50,7 +50,11 @@ public class Hedis {
 	public String get(String key) {
 		Protocol.sendMessage(outputStream, Command.GET, SafeEncoder.castValue(key));
 		String replyMessage = Protocol.getReplyMessage(inputStream);
-		return replyMessage.substring(replyMessage.indexOf(Protocol.LINEFLAG), replyMessage.lastIndexOf(Protocol.LINEFLAG)).replace(Protocol.LINEFLAG, Protocol.EMPTY);
+		
+		String temp1 = replyMessage.substring(replyMessage.indexOf(Protocol.LINEFLAG), replyMessage.lastIndexOf(Protocol.LINEFLAG));
+		String temp2 = temp1.substring(replyMessage.indexOf(Protocol.LINEFLAG));
+		String temp3 = temp2.substring(replyMessage.indexOf(Protocol.LINEFLAG)).replace(Protocol.LINEFLAG, Protocol.EMPTY);
+		return temp3;
 	}
 	
 	public String incr(String key) {
